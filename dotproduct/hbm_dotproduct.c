@@ -75,7 +75,7 @@ int main()
 
   prod=dotProduct( arr1, arr2, arrSize);
   printf("Dot product : %lf\n", prod);
-  //sleep (120); //Added to check the memory allocation using command - numstat
+  sleep (120); //Added to check the memory allocation using command - numstat
 exit:
   if (arr1) {
     hbw_free(arr1);
