@@ -1,4 +1,4 @@
-# Steps to compile the prgram
+## Steps to compile the prgram
 
 * Using malloc
 ```
@@ -9,7 +9,7 @@ $ make ddr
 $ make hbm
 ```
 
-# Steps to submit job to SLURM
+## Steps to submit job to SLURM
 
 * For DDR
 ```
@@ -20,7 +20,7 @@ $ sbatch submit_ddr.sh
 $ sbatch submit_hbm.sh
 ```
 
-# Few observations 
+## Few observations 
 
 * To find out which NUMA node is associated with HBM, run the command numactl with the –hardware or -H option and look for the node with no cores.
 ```
@@ -41,6 +41,7 @@ NOTE: On knl partition, both nodes have DDR memory.
 
 * For DDR
 ```
+$ export MEMKIND_HBW_NODES=0
 $ numactl --membind=0 ./ddr_dotproduct
 $ ps -C ddr_dotproduct u
 USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
@@ -60,6 +61,8 @@ Total                        0.52            0.06            0.58
 
 * For HBM
 ```
+$ export MEMKIND_HBW_NODES=0
+$ numactl --membind=1 ./hbm_dotproduct
 $ ps -C hbm_dotproduct u
 USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 hpcsriv1  15963  0.6  0.0  39964 18252 pts/21   S+   20:40   0:00 ./hbm_dotproduct
@@ -76,4 +79,9 @@ Private                      0.57           17.24           17.81
 Total                        0.57           17.29           17.86
 ```
 
+## References
+
+* [MCDRAM as High-Bandwidth Memory (HBM) in Knights Landing Processors: Developer’s Guide](https://colfaxresearch.com/knl-mcdram/)
+* [Clustering Modes in Knights Landing Processors](https://colfaxresearch.com/knl-numa/#sec:first)
+* [MCDRAM on 2nd Generation Intel® Xeon Phi™ Processor (code-named Knights Landing): Analysis Methods and Tools](https://software.intel.com/sites/default/files/managed/5f/5e/MCDRAM_Tutorial.pdf)
 
