@@ -2,14 +2,21 @@
 #include <stdlib.h>
 #include <string.h>
 #include <hbwmalloc.h>
-#define ARRAY_SIZE 10000000 
+
+/* numactl -H shows following output on knl node -
+ * node 1 cpus:
+ * node 1 size: 16384 MB
+ * node 1 free: 14896 MB
+ * So I chose to have 10 GB of array size
+ */
+#define ARRAY_SIZE 1000000000
 
 double dotProduct(double* arr1, double* arr2) {
   double dotProd = 0.0;
-  int i = 0;
+  long i = 0;
   for ( i = 0; i < ARRAY_SIZE; i++ ) {
     dotProd = dotProd + arr1[i] * arr2[i];
-    printf("Dot product : %lf arr1[%d]= %lf arr2[%d]=%lf\n", dotProd, i, arr1[i], i, arr2[i]);
+  /*  printf("Dot product : %lf arr1[%d]= %lf arr2[%d]=%lf\n", dotProd, i, arr1[i], i, arr2[i]); */
   }
   return dotProd;
 }
@@ -19,7 +26,7 @@ int main(int argc, char** argv)
   double *arr1 = NULL; 
   double *arr2 = NULL;
   double prod = 0.0;
-  int i = 0;
+  long i = 0;
 
   if (argc != 2) {
     printf("Usage: ./dotproduct [OPTIONS]\n");
@@ -43,7 +50,7 @@ int main(int argc, char** argv)
     }
   }
   else if (!strcmp(argv[1], "hbm")) {
-    printf("Using hbw_malloc allocator\n");
+    printf("Using hbw_malloc allocator\n"); 
     arr1 = (double*)hbw_malloc(ARRAY_SIZE*sizeof(double));
     if (arr1 == NULL) {
       perror("hbw_malloc()");
@@ -72,7 +79,7 @@ int main(int argc, char** argv)
   }
 
   prod=dotProduct( arr1, arr2);
-  printf("Dot product : %lf\n", prod);
+  printf("Dot product : %lf\n", prod); 
 
   if (!strcmp(argv[1], "ddr")) {
     free (arr1);
