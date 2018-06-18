@@ -7,7 +7,7 @@
  * node 1 cpus:
  * node 1 size: 16384 MB
  * node 1 free: 14896 MB
- * So I chose to have 10 GB of array size
+ * ARRAY_SIZE is 1 GB chosen
  */
 #define ARRAY_SIZE 1000000000
 
