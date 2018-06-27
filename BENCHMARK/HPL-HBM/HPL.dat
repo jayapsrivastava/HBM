@@ -3,7 +3,7 @@ Innovative Computing Laboratory, University of Tennessee
 HPL-HBM-NUMA.out      output file name (if any)
 file            device out (6=stdout,7=stderr,file)
 1            # of problems sizes (N)
-37504        Ns
+37632        Ns
 1            # of NBs
 336          NBs
 0            PMAP process mapping (0=Row-,1=Column-major)
